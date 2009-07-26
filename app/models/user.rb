@@ -14,4 +14,5 @@ class User
   property :id,     Serial
   property :login,  String
   
+  has n, :invites
 end
