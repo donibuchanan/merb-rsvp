@@ -3,5 +3,5 @@ class Invite
   
   property :id, Serial
   belongs_to :user
-
+  property :accepted, DateTime
 end

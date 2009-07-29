@@ -4,13 +4,10 @@ Feature: accept invite
   Logs in and checks the I accept box
 
   Scenario: Login 
-    Given I am not authenticated
-    And I am a user "myfriend" with password "apassword"
-    And I have an invite
-    When I go to /invites
-    And I fill in "login" with "myfriend"
-    And I fill in "password" with "apassword"
-    And I press "Log In"
+    Given I am logged in as "myfriend" with password "apassword"
     Then I should see "Are you coming?"
 
-
+  Scenario: Accept Invite
+    Given I am logged in as "myfriend" with password "apassword"
+    When I press "I'm coming!"
+    Then I should see "Accepted invite!"

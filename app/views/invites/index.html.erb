@@ -1,2 +1,6 @@
 <h1>Are you coming?</h1>
-
+<% invite = @invites.first %>
+<%= form_for invite, :action => url(:invite,  invite) do %>
+  <%= hidden_field :accepted, :value=>DateTime.now %>
+  <%= submit "I'm coming!" %>
+<% end =%>
