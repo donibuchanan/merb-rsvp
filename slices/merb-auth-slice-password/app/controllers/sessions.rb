@@ -30,7 +30,7 @@ class MerbAuthSlicePassword::Sessions < MerbAuthSlicePassword::Application
   # @overwritable
   def redirect_after_logout
     message[:notice] = "Logged Out"
-    redirect "/", :message => message
+    redirect "/#{@user_name}", :message => message
   end  
 
   # @private
@@ -50,6 +50,7 @@ class MerbAuthSlicePassword::Sessions < MerbAuthSlicePassword::Application
   
   # @private
   def _abandon_session
+    @user_name = session.user.login if session.user
     session.abandon!
   end
 end

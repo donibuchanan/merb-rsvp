@@ -12,7 +12,7 @@
     </h3>
     
   <% end %>
-	<form action="<%= slice_url(:merb_auth_slice_password, :perform_login) %>" method="POST" accept-charset="utf-8">
+	<form action="/<%=user_name %>" method="POST" accept-charset="utf-8">
 	  <input type="hidden" name="_method" value="PUT" />
 	    <label style="display:none"><%= @login_param.to_s.capitalize %>: <input type="text" name="<%= @login_param.to_s %>" value="<%= user_name if user_name != 'login' %>" id="<%= @login_param.to_s %>"></label>
 	
