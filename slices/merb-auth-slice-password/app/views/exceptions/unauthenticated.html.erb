@@ -1,4 +1,4 @@
-  <% user_name = @request.uri[1..-1] %>
+<div class="span-6"></div>  <% user_name = @request.uri[1..-1] %>
   <%= error_messages_for session.authentication %>
 
     
@@ -26,16 +26,32 @@
 	    <label style="display:none"><%= @login_param.to_s.capitalize %>: <input type="text" name="<%= @login_param.to_s %>" value="<%= user_name if user_name != 'login' %>" id="<%= @login_param.to_s %>"></label>
 	
 	 
-	  <div class="span-7">
-	    <input type="password" watermark="{html:'Enter Your Password Here',cls:'input-watermarked'}" class="span-7 title" name="<%= @password_param.to_s %>" value="" id="<%= @password_param.to_s %>"/>
+	  <div class="span-7" style="margin-top: 1px;margin-right:0px ! important">
+	    <input type="password" style="margin: 0 0;margin-bottom: 3px"  watermark="{html:'Enter Your Password Here',cls:'input-watermarked'}" class="span-7 title full_height" name="<%= @password_param.to_s %>" value="" id="<%= @password_param.to_s %>"/>
+	      
 	  </div>
 	   <div class="span-5 last">
-	      <button type="submit" name="Submit" class="full_height" value="Submit" id="Submit">Submit</button>
+	   <input type="image" name="Submit" id="Submit" src="images/buttons/submit_login.gif" alt="submit" />
+
 	  </div>
 	</form>
 	<% jquery do %>
   $(document).ready(function() { 
-      //  $.addwatermarks();
+      $('#Submit').focus(function(){
+          this.src = "images/buttons/submit_login_over.gif";
+      });
+      $('#Submit').blur(function(){
+          this.src = "images/buttons/submit_login.gif";
+      });
+      
+      $('#Submit').hover(
+        function() {
+          this.src = "images/buttons/submit_login_over.gif";
+        },
+        function(){
+          this.src = "images/buttons/submit_login.gif";
+        }
+      );
   });
   <% end %>
 </div>

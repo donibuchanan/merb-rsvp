@@ -7,8 +7,8 @@
   end
   
 namespace :vlad do
-  desc 'Runs vlad:update, vlad:symlink, vlad:migrate and vlad:start'
-  task :deploy => ['vlad:update', 'vlad:symlink', 'vlad:stop_app', 'vlad:start_app']
+  desc 'Runs vlad:update, vlad:symlink'
+  task :deploy => ['vlad:update', 'vlad:symlink']
 
   desc 'Symlinks your custom directories'
   remote_task :symlink, :roles => :app do
