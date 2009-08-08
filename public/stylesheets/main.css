@@ -3,10 +3,7 @@
 .input-watermarked {
   color: #CCCCCC;
   font-style: italic;
-  font-size:1.5em;
   line-height: 0px;
-  float: none ! important;
-  
 }
 
 /* fun stuff */
@@ -17,7 +14,7 @@
 .full_height{
   margin:0 0 0 0  ! important;;
   padding-bottom: 2px ! important;
-  border: solid 1px black;
+  border: 1px solid black ! important;
 }
 
 
