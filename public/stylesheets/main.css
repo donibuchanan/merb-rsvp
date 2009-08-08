@@ -1,0 +1,21 @@
+/* Watermarks 
+*/
+.input-watermarked {
+  color: #CCCCCC;
+  font-style: italic;
+  font-size:1.5em;
+  line-height: 0px;
+  float: none ! important;
+}
+
+/* fun stuff */
+.penis {
+  text-decoration: line-through;
+}
+
+.full_height{
+  padding-top: 6px ! important;
+  padding-bottom: 7px ! important;
+  margin-top: 0.8em;
+  
+}
