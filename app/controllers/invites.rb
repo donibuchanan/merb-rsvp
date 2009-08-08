@@ -1,6 +1,6 @@
 class Invites < Application
   # provides :xml, :yaml, :js
-
+  provides :json
   def index
     @invites = session.user.invites
     display @invites
@@ -36,11 +36,20 @@ class Invites < Application
   end
 
   def update(id, invite)
+    
     @invite = Invite.get(id)
     raise NotFound unless @invite
+    puts "asdf"
     if @invite.update_attributes(invite)
-       redirect resource(@invite)
+      puts "222"
+      case content_type
+        when :json
+          display @invite
+        else
+          redirect resource(@invite)
+      end       
     else
+    puts @invite.errors.inspect
       display @invite, :edit
     end
   end

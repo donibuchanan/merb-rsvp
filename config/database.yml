@@ -2,9 +2,11 @@
 # This is a sample database file for the DataMapper ORM
 development: &defaults
   # These are the settings for repository :default
-  adapter:  sqlite3
-  database: sample_development.db
- 
+  adapter:  mysql
+  database: birthday
+  username: merb
+  password: merb
+  host:     localhost
   # Add more repositories
   # repositories:
   #   repo1:
@@ -15,7 +17,7 @@ development: &defaults
  
 test:
   <<:       *defaults
-  database: sample_test.db
+  database: birthday-test
  
   # repositories:
   #   repo1:
@@ -23,7 +25,7 @@ test:
  
 production:
   <<:       *defaults
-  database: production.db
+  database: birthday-production
  
   # repositories:
   #   repo1:

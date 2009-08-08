@@ -1,6 +1,48 @@
 <h1>Are you coming?</h1>
-<% invite = @invites.first %>
-<%= form_for invite, :action => url(:invite,  invite) do %>
-  <%= hidden_field :accepted, :value=>DateTime.now %>
-  <%= submit "I'm coming!" %>
-<% end =%>
+<%= hidden_field :name=>"date_viewed", :value=>DateTime.now %>
+<% @invites.each do |invite| %>
+  <%= form_for invite, :action => url(:invite,  invite, :format=>:json), :id=>"form_#{invite.id}" do %>
+    Is <%=invite.name%> coming?<%= radio_group :accepted, [{:value=>true, :label=>"yes"},{:value=>false,:label=>"no"}] %>
+    <%= hidden_field :accepted_at %>
+    <%= hidden_field :declined_at %>
+    <span ><%= invite.accepted_message %></span>
+  <% end =%>
+
+<% end %>
+ <% jquery do %>
+   $(document).ready(function() { 
+    function respond_to_invite(is_coming, form){
+      accepted = $('input[name="invite[accepted_at]"]:hidden', form)[0];
+      declined = $('input[name="invite[declined_at]"]:hidden', form)[0];
+      responded_time = $('input[name="date_viewed"]:hidden')[0].value
+      if (is_coming) {
+        accepted.value = responded_time;
+        declined.value = ''
+      }else{
+        accepted.value = ''
+        declined.value = responded_time;
+      }
+      form.ajaxSubmit(
+      { 
+        dataType:    'json',
+        success:    function(data) { 
+          $("span", form).hide();
+          $("span", form).fadeIn("slow");
+          if (data.accepted){
+            $("span", form).text(data.name + "<%=accept_message(true)%>!");
+          }else{
+            $("span", form).text(data.name + "<%=accept_message(false)%>!");
+          }
+        }
+      } 
+      );
+    }
+    $('input[value="true"]:radio').bind("click", function(e){
+      respond_to_invite(true, $(this.form));
+    });
+    $('input[value="false"]:radio').bind("click", function(e){
+      respond_to_invite(false, $(this.form));
+    });
+
+  }); 
+ <% end %>
