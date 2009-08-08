@@ -1,14 +1,23 @@
-
   <% user_name = @request.uri[1..-1] %>
   <%= error_messages_for session.authentication %>
-  
+
     
   <% @login_param = Merb::Authentication::Strategies::Basic::Base.login_param %>
   <% @password_param = Merb::Authentication::Strategies::Basic::Base.password_param %>
   <% if user = User.first(:login=>user_name) %>
-    <div>
+
+<div>
+  <div class="span-5">&nbsp;</div>
+  <div class="span-14" style="text-align: center">
+    <img align="center" src="images/login_hero.jpg" alt="Sanchez Who?"/>
+  </div>
+  <div class="span-5 last">&nbsp;</div>
+<div>
+<div class="span-5">&nbsp;</div>
+<div class="span-14">
+    
     <h3>Hey <%= user.invites.map(&:name).join(" & ") %>.<br/>
-    <label for="password">Enter your <span class="penis">penis</span>password below to access Nicole's birthday site.</label>
+    Enter your <span class="penis">penis</span> password below to access Nicole's birthday site.
     </h3>
     
   <% end %>
@@ -20,7 +29,7 @@
 	  <div class="span-7">
 	    <input type="password" watermark="{html:'Enter Your Password Here',cls:'input-watermarked'}" class="span-7 title" name="<%= @password_param.to_s %>" value="" id="<%= @password_param.to_s %>"/>
 	  </div>
-	   <div class="span-14 last">
+	   <div class="span-5 last">
 	      <button type="submit" name="Submit" class="full_height" value="Submit" id="Submit">Submit</button>
 	  </div>
 	</form>
@@ -30,5 +39,6 @@
   });
   <% end %>
 </div>
-    
+<div class="span-5 last">&nbsp; </div>    
+</div>
   
