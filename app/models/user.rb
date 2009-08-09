@@ -15,4 +15,5 @@ class User
   property :login,  String
   
   has n, :invites
+  has n, :submissions
 end

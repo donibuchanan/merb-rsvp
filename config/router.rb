@@ -28,6 +28,7 @@
 Merb.logger.info("Compiling routes...")
 Merb::Router.prepare do
   
+  
 
   # RESTful routes
   # resources :posts
@@ -41,8 +42,11 @@ Merb::Router.prepare do
   # clients from calling your create or destroy actions with a GET
   #default_routes
   authenticate do
+    match("/random_submission").to(:controller=>"submissions", :action=>"show_random")
     match("/:login_name").to(:controller=>"invites" ,:action=>"index")
     resources :invites
+    resources :submissions
+  
     match('/').to(:controller => 'invites', :action =>'index')
   end
 

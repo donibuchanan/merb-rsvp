@@ -2,6 +2,11 @@
  
 require 'config/dependencies.rb'
 require 'merb_jquery'
+# Main class
+require 'lib/acts_as_unvlogable'
+# Gems & other herbs
+require 'open-uri'
+require 'hpricot'
 
 use_orm :datamapper
 use_test :rspec

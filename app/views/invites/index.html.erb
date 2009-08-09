@@ -1,14 +1,18 @@
 <%= hidden_field :name=>"date_viewed", :value=>DateTime.now %>
 <div>
   <div class="span-11 inappropriate_box">
-    <div class="inappropriate_text"><h1>Pubic moustaches are the way forward.</h1></div> 
+    <div class="inappropriate_text">
+      <h1 id="inappropriate_text_content"><%= Submission.random.first.content %></h1>
+    </div> 
+    <%= form_for :submission, :action => url(:submissions, :format=>:json), :id=>"submit_text_form" do %>
     <div class="span-6 enter_text">
-	    <input type="text" watermark="{html:'Enter inappropriateness here',cls:'input-watermarked'}" class="span-6 title full_height" name="submit_text" value="" id="submit_text"/>
+	    <input type="text" watermark="{html:'Enter inappropriateness here',cls:'input-watermarked'}" class="span-6 title full_height" name="submission[content]" value="" id="submit_text_content"/>
 	  </div>
     <div class="span-4 last">
        <a name="submit_text" id="submit_text" class="nickers_button submit_button" value="submit" ></a>
 	     <a name="next_text" id="next_text" class="nickers_button next_button"  value="view_next" ></a>
 	  </div>
+	  <% end =%>
   </div>
   <div class="span-10 last rsvp">
     
@@ -52,16 +56,20 @@
 </div>
 <div class="span-21 last middle">
   <div class="span-11 youtube_frame">
-  <div class="youtube_div"><object width="308" height="250"><param name="movie" value="http://www.youtube.com/v/RBnLZH7Aqj0&hl=en&fs=1&rel=0&border=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/RBnLZH7Aqj0&hl=en&fs=1&rel=0&border=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true"
-   width="308" height="250"></embed></object></div>
-    <div class="span-6 enter_text " >
-	    <input type="text" watermark="{html:'Enter inappropriateness here',cls:'input-watermarked'}" class="span-6 title full_height" name="youtube" value="" id="youtube"/>
-	   
+ 
+  <div id="youtube_div" class="youtube_div">
+     <%= UnvlogIt.new(Submission.random(:type=>:video).first.content).embed_html(308, 250) %>
+  </div>
+    <%= form_for :submission, :action => url(:submissions, :format=>:json), :id=>"submit_youtube_form" do %>
+    <div class="span-6 enter_text">
+	    <input type="text" watermark="{html:'Enter inappropriateness here',cls:'input-watermarked'}" class="span-6 title full_height" name="submission[content]" value="" id="youtube_content"/>
+	    <%= hidden_field :name=>"submission[type]", :value=>:video %>
 	  </div>
     <div class="span-4 last" >
       <a name="submit_youtube" id="submit_youtube" class="nickers_button submit_button" value="submit" ></a>
       <a name="next_youtube" id="next_youtube" class="nickers_button next_button"  value="view_next" ></a>
     </div>
+    <% end =%>
   </div>
   <div class="span-10 last image_frame"><img src="images/title.gif" ></div>
  
@@ -73,7 +81,59 @@
     $("#submit_response").click(function(){
       alert("THANKS!");
     });
-   
+    $('#next_text').click(function(){
+      $.getJSON("/random_submission",
+        function(data){
+          $('#inappropriate_text_content').html(data.formatted_content);
+        }
+      )
+    });
+    $('#next_youtube').click(function(){
+      $.getJSON("/random_submission?type=video",
+        function(data){
+          $('#youtube_div').html(data.formatted_content);
+        }
+      )
+    });
+    
+    $('#submit_youtube').click(function(){
+      $('#submit_youtube_form').ajaxSubmit(
+      {
+        dataType: 'json',
+        success:    function(data) { 
+          text_content = $('#youtube_content')
+          text_content[0].value='';
+          text_content.trigger('blur');
+          if (data.error){
+            alert(data.error[0])
+          }
+          else{
+            alert("Thanks for your dirty video!")
+          }
+        }
+      }
+      );
+    });
+    
+    $('#submit_text').click(function(){
+      $('#submit_text_form').ajaxSubmit(
+      {
+        dataType: 'json',
+        success:    function(data) { 
+          text_content = $('#submit_text_content')
+          text_content[0].value='';
+          text_content.trigger('blur');
+          if (data.error){
+            alert(data.error[0])
+          }
+          else{
+             alert("Thanks for your filthy thoughts!")
+          }
+        }
+      }
+      );
+    });
+    
     function respond_to_invite(is_coming, form){
       accepted = $('input[name="invite[accepted_at]"]:hidden', form)[0];
       declined = $('input[name="invite[declined_at]"]:hidden', form)[0];
@@ -112,6 +172,9 @@
     $('[name="respond_no"]').bind("click", function(e){
       respond_to_invite(false,  $(this.attributes["form_id"].value));
     });
+    
+
+    
 
   }); 
  <% end %>

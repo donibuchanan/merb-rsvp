@@ -39,9 +39,7 @@ class Invites < Application
     
     @invite = Invite.get(id)
     raise NotFound unless @invite
-    puts "asdf"
     if @invite.update_attributes(invite)
-      puts "222"
       case content_type
         when :json
           display @invite
@@ -49,7 +47,6 @@ class Invites < Application
           redirect resource(@invite)
       end       
     else
-    puts @invite.errors.inspect
       display @invite, :edit
     end
   end
