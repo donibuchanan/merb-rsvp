@@ -25,7 +25,7 @@ a.nickers_button{
   height:28px;
   position:relative;
   top: 1px;
-  background-position:-1px 0px; 
+  background-position:0px 0px; 
   background-repeat: no-repeat
 }
 
@@ -40,7 +40,7 @@ a.submit_button{
   background-image: url('../images/buttons/submit_buttons.gif');
 }
 a.yes_no_button {
-  height: 31px;
+  height: 30px;
 }
 a.yes_button{
   background-image: url('../images/buttons/yes.gif');
