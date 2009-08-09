@@ -21,7 +21,7 @@
 a.nickers_button{
   clear:both;
   display:block;
-  width:71px;
+  width:72px;
   height:28px;
   position:relative;
   top: 1px;
@@ -29,8 +29,8 @@ a.nickers_button{
   background-repeat: no-repeat
 }
 
-.nickers_button:hover {
-  background-position:-1px -30px;
+.nickers_button:hover,a.yes_button.selected,a.no_button.selected {
+  background-position: 0px -30px;
   cursor: hand; 
 }
 a.login_button{
@@ -45,14 +45,7 @@ a.yes_no_button {
 a.yes_button{
   background-image: url('../images/buttons/yes.gif');
 }
-a.yes_button:hover, a.yes_button.selected{
-  background-position:-1px 0px;
-  background-image: url('../images/buttons/yes_selected.gif');
-}
-a.no_button:hover, a.no_button.selected{
-  background-position:-1px 0px;
-  background-image: url('../images/buttons/no_selected.gif');
-}
+
 
 a.no_button{
   background-image: url('../images/buttons/no.gif');
@@ -82,13 +75,18 @@ div.image_frame img {
 }
 div.youtube_frame{
   padding-left: 22px;
+  background-image: url('../images/frame_youtube.gif');
+  background-position: 22px 0px; 
+  background-repeat: no-repeat
 }
 
-div.youtube_frame img {
-  margin-bottom: 4px;
-}
-div.youtube{
+div.youtube_frame embed {
  
+}
+div.youtube_div{
+  height: 310px;
+  padding-top: 50px;
+  padding-left: 50px;
 }
 div.middle {
   background-image: url('../images/tilable_grid_horizontal.gif');
@@ -102,6 +100,7 @@ div.inappropriate_text{
   width: 404px;
   height: 140px;
   margin-bottom: 5px;
+  padding: 5px;
 }
 div.inappropriate_box{
  
