@@ -17,36 +17,116 @@
   border: 1px solid black ! important;
 }
 
-a.login_button{
+a.nickers_button{
   clear:both;
   display:block;
-  width:72px;
+  width:71px;
   height:30px;
   margin-top: 1px;
-  background-image: url('../images/buttons/submit_buttons.gif');
   background-position:-1px 0px; 
-  background-repeat: no-repeat;
+  background-repeat: no-repeat
 }
-.login_button:hover {
+
+.nickers_button:hover {
   background-position:-1px -30px;
   cursor: hand; 
-  
 }
+a.login_button{
+  background-image: url('../images/buttons/submit_buttons.gif');
+}
+a.submit_button{
+  background-image: url('../images/buttons/submit_buttons.gif');
+}
+a.yes_no_button {
+  height: 31px;
+}
+a.yes_button{
+  background-image: url('../images/buttons/yes.gif');
+}
+a.yes_button:hover, a.yes_button.selected{
+  background-position:-1px 0px;
+  background-image: url('../images/buttons/yes_selected.gif');
+}
+a.no_button:hover, a.no_button.selected{
+  background-position:-1px 0px;
+  background-image: url('../images/buttons/no_selected.gif');
+}
+
+a.no_button{
+  background-image: url('../images/buttons/no.gif');
+}
+
+
+a.next_button{
+  position: relative;
+  left: 70px;
+  top: -31px;
+  width: 91px;
+  background-image: url('../images/buttons/view_next_butt.gif');
+}    
+
 
 /* invite page stuff */
 div.image_frame {
-  height: 446px;
-  width: 383px;
-  
+  width: 355px;
+  height: 390px;
   background-image: url('../images/frame_pics.gif');
+  margin-left: -12px;
 }
 div.image_frame img {
-  height: 402px;
   margin: 22px;
-  width: 339px;
+  width: 311px;
+  height: 345px;
+}
+div.youtube_frame{
+  padding-left: 22px;
+}
+
+div.youtube_frame img {
+  margin-bottom: 4px;
+}
+div.youtube{
+ 
 }
 div.middle {
-  background-image: url('../images/tilable_grid01.gif');
-  height: 480px;
-  padding-top: 30px;
+  background-image: url('../images/tilable_grid_horizontal.gif');
+  height: 411px;
+  padding-top: 31px;
+  
 }
+
+div.inappropriate_text{
+  border: 1px solid black;
+  width: 404px;
+  height: 140px;
+  margin-bottom: 5px;
+}
+div.inappropriate_box{
+ 
+  padding-left: 22px;
+}
+div.rsvp{
+  margin-left: -12px;
+  height: 181px;
+  background-image:  url('../images/RSVP_tag.gif');
+  background-position: 2px 0px; 
+  background-repeat: no-repeat
+}
+div.rsvp div{
+  padding-left: 40px;
+  padding-top: 10px;
+}
+input.span-6{
+  width: 233px ! important;
+}
+div.enter_text{
+  width: 245px ! important;
+  padding-top: 1px;
+  margin-right:0px ! important
+}
+
+div.no_margin{
+  margin: 0px 0px;
+}
+
+

@@ -1,62 +1,114 @@
 <%= hidden_field :name=>"date_viewed", :value=>DateTime.now %>
-<div class="span-24 last">
-  <div class="span-12">suggestions</div>
-  <div class="span-12 last">
-  So <%= session.user.invites.map(&:name).join(" & ") %>,<br/>
-  Will you be attending Nickers' inappropriate 30th?<br/>
-  (You can always change your mind later)
-  <% @invites.each do |invite| %>
-  <%= form_for invite, :action => url(:invite,  invite, :format=>:json), :id=>"form_#{invite.id}" do %>
-    <%=invite.name%><%= radio_group :accepted, [{:value=>true, :label=>"yes"},{:value=>false,:label=>"no"}] %>
-    <%= hidden_field :accepted_at %>
-    <%= hidden_field :declined_at %>
-    <span ><%= invite.accepted_message %></span>
-  <% end =%>
+<div>
+  <div class="span-11 inappropriate_box">
+    <div class="inappropriate_text"><h1>Pubic moustaches are the way forward.</h1></div> 
+    <div class="span-6 enter_text">
+	    <input type="text" watermark="{html:'Enter inappropriateness here',cls:'input-watermarked'}" class="span-6 title full_height" name="submit_text" value="" id="submit_text"/>
+	  </div>
+    <div class="span-4 last">
+       <a name="submit_text" id="submit_text" class="nickers_button submit_button" value="submit" ></a>
+	     <a name="next_text" id="next_text" class="nickers_button next_button"  value="view_next" ></a>
+	  </div>
+  </div>
+  <div class="span-10 last rsvp">
+    
+      <div>
+      So <%= session.user.invites.map(&:name).join(" & ") %>,<br/>
+      Will you be attending Nickers' inappropriate 30th?<br/>
+      (You can always change your mind later)
+      </div>
+     
+      <% @invites.each do |invite| %>
+       <div class="span-10 " >
+        <%= form_for invite, :action => url(:invite,  invite, :format=>:json), :id=>"respond_form_#{invite.id}" do %>
+          <div class="span-2" style="padding-left: 0px" >
+            <%= invite.name %>:
+          </div>
+          <div class="span-1"  style="padding-top:0px;padding-left: 0px">
+            <a name="respond_yes" form_id="#respond_form_<%=invite.id%>" class="nickers_button yes_button yes_no_button <%= yes_class(invite) %>" value="submit" ></a>
+          </div>
+          <div class="span-1"  style="padding-top:0px;">      
+            <a name="respond_no"  form_id="#respond_form_<%=invite.id%>" class="nickers_button no_button yes_no_button <%= no_class(invite) %>" value="submit" ></a>
+ 	    <%= hidden_field :accepted_at %>
+            <%= hidden_field :declined_at %>
+            <%= hidden_field :accepted %>
+          
+          </div>
+          <div class="span-2 last" style="padding-top:1px;">     
+            <% if invite == @invites.last %>
+            <a name="submit_response" id="submit_response" class="nickers_button submit_button" value="submit" ></a>
+	          <% end %>
+          </div>      
 
-<% end %>
+
+          
+        <% end =%>
+        
+        </div>
+      <% end %>
+    
+   
   </div>
 </div>
-<div class="span-24 last middle">
-  <div class="span-10"><img src="images/frame_youtube.gif"></div>
-  <div class="span-4">&nbsp;</div>
-  <div class="span-9 last image_frame"><img src="images/main_bottom_img.gif" ></div>
+<div class="span-21 last middle">
+  <div class="span-11 youtube_frame" ><img src="images/frame_youtube.gif">
+    <div class="span-6 enter_text" >
+	    <input type="text" watermark="{html:'Enter inappropriateness here',cls:'input-watermarked'}" class="span-6 title full_height" name="youtube" value="" id="youtube"/>
+	   
+	  </div>
+    <div class="span-4 last" >
+      <a name="submit_youtube" id="submit_youtube" class="nickers_button submit_button" value="submit" ></a>
+      <a name="next_youtube" id="next_youtube" class="nickers_button next_button"  value="view_next" ></a>
+    </div>
+  </div>
+  <div class="span-10 last image_frame"><img src="images/title.gif" ></div>
  
 </div>
-<div  class="footer"><img src="images/main_bottom_img.gif"></div>
+<div  class="footer span-21 last"><img src="images/main_bottom_img.gif"></div>
 
  <% jquery do %>
    $(document).ready(function() { 
+    $("#submit_response").click(function(){
+      alert("THANKS!");
+    });
+   
     function respond_to_invite(is_coming, form){
       accepted = $('input[name="invite[accepted_at]"]:hidden', form)[0];
       declined = $('input[name="invite[declined_at]"]:hidden', form)[0];
+      accepted_status = $('input[name="invite[accepted]"]:hidden', form)[0];
       responded_time = $('input[name="date_viewed"]:hidden')[0].value
       if (is_coming) {
         accepted.value = responded_time;
         declined.value = ''
+        accepted_status.value = 'true';
       }else{
         accepted.value = ''
         declined.value = responded_time;
+        accepted_status.value = 'false';
       }
       form.ajaxSubmit(
       { 
         dataType:    'json',
         success:    function(data) { 
-          $("span", form).hide();
-          $("span", form).fadeIn("slow");
+                
           if (data.accepted){
-            $("span", form).text(data.name + "<%=accept_message(true)%>!");
+            selected_button = $('a[name="respond_yes"]',form)
+            non_selected_button = $('a[name="respond_no"]',form)
           }else{
-            $("span", form).text(data.name + "<%=accept_message(false)%>!");
+            selected_button = $('a[name="respond_no"]',form)
+            non_selected_button = $('a[name="respond_yes"]',form)
           }
+          selected_button.addClass("selected");
+          non_selected_button.removeClass("selected");
         }
       } 
       );
     }
-    $('input[value="true"]:radio').bind("click", function(e){
-      respond_to_invite(true, $(this.form));
+    $('[name="respond_yes"]').bind("click", function(e){
+      respond_to_invite(true, $(this.attributes["form_id"].value));
     });
-    $('input[value="false"]:radio').bind("click", function(e){
-      respond_to_invite(false, $(this.form));
+    $('[name="respond_no"]').bind("click", function(e){
+      respond_to_invite(false,  $(this.attributes["form_id"].value));
     });
 
   }); 
