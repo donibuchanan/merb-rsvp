@@ -13,16 +13,18 @@
 
 .full_height{
   margin:0 0 0 0  ! important;;
-  padding-bottom: 1px ! important;
+  padding-bottom: 0px ! important;
   border: 1px solid black ! important;
+  height: 21px;
 }
 
 a.nickers_button{
   clear:both;
   display:block;
   width:71px;
-  height:30px;
-  margin-top: 1px;
+  height:28px;
+  position:relative;
+  top: 1px;
   background-position:-1px 0px; 
   background-repeat: no-repeat
 }
@@ -60,7 +62,7 @@ a.no_button{
 a.next_button{
   position: relative;
   left: 70px;
-  top: -31px;
+  top: -27px;
   width: 91px;
   background-image: url('../images/buttons/view_next_butt.gif');
 }    
