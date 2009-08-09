@@ -1,14 +1,29 @@
-<h1>Are you coming?</h1>
 <%= hidden_field :name=>"date_viewed", :value=>DateTime.now %>
-<% @invites.each do |invite| %>
+<div class="span-24 last">
+  <div class="span-12">suggestions</div>
+  <div class="span-12 last">
+  So <%= session.user.invites.map(&:name).join(" & ") %>,<br/>
+  Will you be attending Nickers' inappropriate 30th?<br/>
+  (You can always change your mind later)
+  <% @invites.each do |invite| %>
   <%= form_for invite, :action => url(:invite,  invite, :format=>:json), :id=>"form_#{invite.id}" do %>
-    Is <%=invite.name%> coming?<%= radio_group :accepted, [{:value=>true, :label=>"yes"},{:value=>false,:label=>"no"}] %>
+    <%=invite.name%><%= radio_group :accepted, [{:value=>true, :label=>"yes"},{:value=>false,:label=>"no"}] %>
     <%= hidden_field :accepted_at %>
     <%= hidden_field :declined_at %>
     <span ><%= invite.accepted_message %></span>
   <% end =%>
 
 <% end %>
+  </div>
+</div>
+<div class="span-24 last middle">
+  <div class="span-10"><img src="images/frame_youtube.gif"></div>
+  <div class="span-4">&nbsp;</div>
+  <div class="span-9 last image_frame"><img src="images/main_bottom_img.gif" ></div>
+ 
+</div>
+<div  class="footer"><img src="images/main_bottom_img.gif"></div>
+
  <% jquery do %>
    $(document).ready(function() { 
     function respond_to_invite(is_coming, form){

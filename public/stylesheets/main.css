@@ -13,8 +13,40 @@
 
 .full_height{
   margin:0 0 0 0  ! important;;
-  padding-bottom: 2px ! important;
+  padding-bottom: 1px ! important;
   border: 1px solid black ! important;
 }
 
+a.login_button{
+  clear:both;
+  display:block;
+  width:72px;
+  height:30px;
+  margin-top: 1px;
+  background-image: url('../images/buttons/submit_buttons.gif');
+  background-position:-1px 0px; 
+  background-repeat: no-repeat;
+}
+.login_button:hover {
+  background-position:-1px -30px;
+  cursor: hand; 
+  
+}
 
+/* invite page stuff */
+div.image_frame {
+  height: 446px;
+  width: 383px;
+  
+  background-image: url('../images/frame_pics.gif');
+}
+div.image_frame img {
+  height: 402px;
+  margin: 22px;
+  width: 339px;
+}
+div.middle {
+  background-image: url('../images/tilable_grid01.gif');
+  height: 480px;
+  padding-top: 30px;
+}
