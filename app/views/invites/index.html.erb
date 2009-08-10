@@ -2,11 +2,11 @@
 <div>
   <div class="span-11 inappropriate_box">
     <div class="inappropriate_text">
-      <h1 id="inappropriate_text_content"><%= Submission.random.first.content %></h1>
+      <span id="inappropriate_text_content"><%= Submission.random.first.content %></span>
     </div> 
     <%= form_for :submission, :action => url(:submissions, :format=>:json), :id=>"submit_text_form" do %>
     <div class="span-6 enter_text">
-	    <input type="text" watermark="{html:'Enter inappropriateness here',cls:'input-watermarked'}" class="span-6 title full_height" name="submission[content]" value="" id="submit_text_content"/>
+	    <input type="text" watermark="{html:'Enter inappropriateness here (<%=Submission.properties[:content].options[:length].max%> chars)',cls:'input-watermarked'}" class="span-6 title full_height" name="submission[content]" value="" id="submit_text_content"/>
 	  </div>
     <div class="span-4 last">
        <a name="submit_text" id="submit_text" class="nickers_button submit_button" value="submit" ></a>
@@ -16,7 +16,7 @@
   </div>
   <div class="span-10 last rsvp">
     
-      <div>
+      <div class="rsvp-message">
       So <%= session.user.invites.map(&:name).join(" & ") %>,<br/>
       Will you be attending Nickers' inappropriate 30th?<br/>
       (You can always change your mind later)
@@ -62,7 +62,7 @@
   </div>
     <%= form_for :submission, :action => url(:submissions, :format=>:json), :id=>"submit_youtube_form" do %>
     <div class="span-6 enter_text">
-	    <input type="text" watermark="{html:'Enter inappropriateness here',cls:'input-watermarked'}" class="span-6 title full_height" name="submission[content]" value="" id="youtube_content"/>
+	    <input type="text" watermark="{html:'Enter inappropriateness youtube URL',cls:'input-watermarked'}" class="span-6 title full_height" name="submission[content]" value="" id="youtube_content"/>
 	    <%= hidden_field :name=>"submission[type]", :value=>:video %>
 	  </div>
     <div class="span-4 last" >
@@ -71,15 +71,61 @@
     </div>
     <% end =%>
   </div>
-  <div class="span-10 last image_frame"><img src="images/title.gif" ></div>
+  <div class="span-10 last image_frame" id="images_show">
+        <img src="images/title.gif" >
+        <img src="images/01.jpg" >
+        <img src="images/02.jpg" >
+        <img src="images/03.jpg" >
+        <img src="images/04.jpg" >
+        <img src="images/05.jpg" >
+        <img src="images/06.jpg" >
+        <img src="images/07.jpg" >
+        <img src="images/08.jpg" >
+        <img src="images/09.jpg" >
+        <img src="images/10.jpg" >
+        
+      </div>
  
 </div>
 <div  class="footer span-21 last"><img src="images/main_bottom_img.gif"></div>
 
  <% jquery do %>
+   function dialog(content){
+     $.modal("<div>" + content + "</div><div class='close_div'><button type='button' class='close'>close</button></div>",
+     {
+       close: false,
+       onShow: function (dialog) {
+			    dialog.data.find('.close').click(function () {
+				    // close the dialog
+				    $.modal.close();
+			    });
+		    }
+
+     });
+     
+   }
    $(document).ready(function() { 
     $("#submit_response").click(function(){
-      alert("THANKS!");
+      var yes_count = 0;
+      var total_count = 0
+      $('a[name="respond_yes"]').each(function(yes_response){
+        total_count++;
+        if ($(this).hasClass("selected")){
+          yes_count++
+        }
+      });
+      if (yes_count == 0){
+        dialog("Bummer. Please think inappropriate thoughts that night. There could well be some inappropriate photos on this site after the event. I’ll keep you posted.");
+      }
+      else{
+        if (yes_count == total_count){
+          dialog("Looking forward to your inappropriate company");
+        }
+        else{
+          dialog("Boo. Oh well, at least i get to be wrong in front of one of you.");
+        }
+      }
+        
     });
     $('#next_text').click(function(){
       $.getJSON("/random_submission",
@@ -105,10 +151,10 @@
           text_content[0].value='';
           text_content.trigger('blur');
           if (data.error){
-            alert(data.error[0])
+            dialog(data.error[0])
           }
           else{
-            alert("Thanks for your dirty video!")
+            dialog("Good one. Thanks for adding to the smutty/wrong/stimulating mix. You’re a true friend.")
           }
         }
       }
@@ -124,10 +170,10 @@
           text_content[0].value='';
           text_content.trigger('blur');
           if (data.error){
-            alert(data.error[0])
+            dialog(data.error[0])
           }
           else{
-             alert("Thanks for your filthy thoughts!")
+            dialog("Good one. Thanks for adding to the smutty/wrong/stimulating mix. You’re a true friend.")
           }
         }
       }
@@ -173,7 +219,9 @@
       respond_to_invite(false,  $(this.attributes["form_id"].value));
     });
     
-
+    $('#images_show').cycle(
+     {timeout: 10000}
+    );
     
 
   }); 

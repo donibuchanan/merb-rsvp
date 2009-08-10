@@ -2,12 +2,12 @@ class Submission
   include DataMapper::Resource
   
   property :id, Serial
-  property :content, String, :length=>(1..250), :message=>"please enter a few characters but not too many"
+  property :content, String, :length=>(1..150), :message=>"please enter a few characters but not too many"
   property :formatted_content, Text
   property :type,  Enum[:video, :text, :image], :default=>:text
   property :display_counter, Integer, :default=>0
   belongs_to :user
-  validates_is_unique :content, :message=>"This has already been submitted!"
+ # validates_is_unique :content, :message=>"This has already been submitted!"
   validates_with_method :check_valid_video
   
   before :save, :format_content

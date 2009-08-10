@@ -4,7 +4,7 @@ class InviteSender < Application
 
       send_mail(InviteMailer, :invite, {
         :from => "filthysock@gmail.com",
-        :to =>   "filthysock@gmail.com",
+        :to =>   "don.i.buchanan@gmail.com",
         :subject => "#{@user.type.capitalize} Birthday!"
       }, { :user => @user })
       

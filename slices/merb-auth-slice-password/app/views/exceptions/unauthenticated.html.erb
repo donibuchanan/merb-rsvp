@@ -16,9 +16,9 @@
 <div class="span-5">&nbsp;</div>
 <div class="span-14">
     
-    <h3>Hey <%= user.invites.map(&:name).join(" & ") %>.<br/>
-    Enter your <span class="penis">penis</span> password below to access Nicole's birthday site.
-    </h3>
+    Hey <%= user.invites.map(&:name).join(" & ") %>.<br/>
+    Enter your <span class="penis">penis</span> password below to access Nicole's inappropriate birthday site.
+    <br/><br/>
     
   <% end %>
 	<form id="form" action="/<%=user_name %>" method="POST" accept-charset="utf-8">
@@ -35,9 +35,7 @@
 	   <a name="Submit" id="Submit" class="nickers_button login_button" value="submit" ></a>
 
 	  </div>
-	  <% if user %>
-	    <a href="/resend_invite/<%=user.login %>">resend invite</a>
-	  <% end %>
+	  
 	</form>
 	<% jquery do %>
   $(document).ready(function() { 
