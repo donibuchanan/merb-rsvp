@@ -1,9 +1,14 @@
 class Invites < Application
   # provides :xml, :yaml, :js
   provides :json
-  def index
-    @invites = session.user.invites
-    display @invites
+  def index(login_name)
+    if !login_name.blank? && login_name != session.user.login
+      session.abandon!
+      redirect "/#{login_name}"
+    else
+      @invites = session.user.invites
+      display @invites
+    end
   end
 
   def show(id)
