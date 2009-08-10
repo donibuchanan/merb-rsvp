@@ -1,3 +1,7 @@
+<% 
+#the session isn't getting destroyed in the controller and the auth controller frightens and confused me
+session.abandon! %>
+
 <div class="span-6"></div>  <% user_name = @request.uri[1..-1] %>
   <%= error_messages_for session.authentication %>
 
