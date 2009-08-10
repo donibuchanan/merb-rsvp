@@ -5,7 +5,7 @@ module Merb
       "selected" if invite.accepted
     end
     def no_class(invite)
-      "selected" unless invite.accepted
+      "selected" if invite.accepted == false        and (!invite.accepted_at.blank? or !invite.declined_at.blank?)
     end
   end
   
