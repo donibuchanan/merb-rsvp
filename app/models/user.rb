@@ -13,6 +13,9 @@ class User
   
   property :id,     Serial
   property :login,  String
+  property :email,  String, :format=>:email_address
+  property :type,   Enum[:nickers, :nicole], :default=>:nickers
+  property :password_plain, String
   
   has n, :invites
   has n, :submissions

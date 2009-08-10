@@ -35,6 +35,9 @@
 	   <a name="Submit" id="Submit" class="nickers_button login_button" value="submit" ></a>
 
 	  </div>
+	  <% if user %>
+	    <a href="/resend_invite/<%=user.login %>">resend invite</a>
+	  <% end %>
 	</form>
 	<% jquery do %>
   $(document).ready(function() { 

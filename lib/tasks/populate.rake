@@ -2,7 +2,8 @@ desc "Populate with one user"
   task :populate => :merb_env do
     unless u = User.first(login: 'don')
       u = User.new(login: 'don')
-      u.password = u.password_confirmation = 'don'
+      u.password_plain = u.password = u.password_confirmation = 'don'
+      u.email = "mail@donaldbuchanan.com"
       u.save
       %w{don nicole}.each do |name|
         u.invites.create(name: name)
