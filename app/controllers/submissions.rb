@@ -1,4 +1,4 @@
-class Submissions < Application
+ class Submissions < Application
   # provides :xml, :yaml, :js
 
   def index
@@ -11,11 +11,26 @@ class Submissions < Application
     raise NotFound unless @submission
     display @submission
   end
+  
+  def current_type
+    params[:type] ||= "text"
+  end
+  def last_viewed_key
+    "last_viewed#{current_type}"
+  end
+  
   def show_random
     headers['cache-control'] = "no-store, no-cache, must-revalidate"
     headers['expires'] = "Sat, 26 Jul 1997 05:00:00 GMT"
     provides :json
-    @submission = Submission.random(:type=>params[:type]).first
+    last_viewed = (session[last_viewed_key] ||= -1)
+    
+    last_viewed += 1
+    if last_viewed >= Submission.count(:type=>current_type.to_sym)
+      last_viewed = 0
+    end
+    session[last_viewed_key] = last_viewed
+    @submission = Submission.all(:type=>current_type.to_sym)[last_viewed]
     raise NotFound unless @submission
     display @submission
   end
