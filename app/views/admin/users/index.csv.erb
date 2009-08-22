@@ -1,0 +1,3 @@
+<% @users.each do |user| %>
+<%= user.login %>,<%= user.email %>,<%= user.invites[0].name if user.invites[0] %>,<%= display_response(user.invites[0]) if user.invites[0] %>,<%= user.invites[1].name if user.invites[1] %>,<%= display_response(user.invites[1]) if user.invites[1] %>
+<% end %>

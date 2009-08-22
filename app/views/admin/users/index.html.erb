@@ -1,0 +1,15 @@
+<div>
+  <a href="/admin/users.csv">Download CSV</a>
+  <table>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.login %></td>
+        <td><%= user.email %></td>
+        <td><%= user.invites[0].name if user.invites[0] %></td>
+        <td><%= display_response(user.invites[0]) if user.invites[0] %></td>
+        <td><%= user.invites[1].name if user.invites[1] %></td>
+        <td><%= display_response(user.invites[1]) if user.invites[1] %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

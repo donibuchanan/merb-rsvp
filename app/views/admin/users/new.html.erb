@@ -1,0 +1,17 @@
+<%= form_for(@user, :action => resource("admin/users") ) do %>
+  <p>
+    <%= text_field :login, :label => "login " %>
+  </p>
+  <p>
+    <%= text_field :email, :label => "email "  %>
+  </p>
+ <p>
+    <%= text_field :password, :label => "password "  %>
+  </p>
+ 
+ 
+  <p>
+    <%= submit "Create" %>
+  </p>
+<% end =%>
+

@@ -26,5 +26,6 @@ Merb::BootLoader.before_app_loads do
 end
  
 Merb::BootLoader.after_app_loads do
+  Merb.add_mime_type :csv, :to_s, %w[application/csv]
   require 'config/mail_init'
 end

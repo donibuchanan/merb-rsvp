@@ -28,11 +28,10 @@
 Merb.logger.info("Compiling routes...")
 Merb::Router.prepare do
   
-  
 
   # RESTful routes
   # resources :posts
-   
+ 
   # Adds the required routes for merb-auth using the password slice
   slice(:merb_auth_slice_password, :name_prefix => nil, :path_prefix => "")
 
@@ -44,6 +43,7 @@ Merb::Router.prepare do
   # clients from calling your create or destroy actions with a GET
   #default_routes
   authenticate do
+    resources "admin/users"
     
     match("/random_submission").to(:controller=>"submissions", :action=>"show_random")
     match("/:login_name").to(:controller=>"invites" ,:action=>"index")
